@@ -37,6 +37,6 @@ Vagrant.configure(2) do |config|
         config.vm.provision "shell", inline: "yum makecache fast && yum install -y cifs-utils"
         config.vm.synced_folder "C:/Users/<user>/Documents/adb_mount", "/vagrant", type: "smb"	
     elsif OS.linux?
-       config.vm.synced_folder "C:/Users/<user>/Documents/adb_mount", "/vagrant", type: "nfs"
+       config.vm.synced_folder "/home/<user>/Desktop/adb_mount", "/vagrant", type: "nfs"
   end
 end
