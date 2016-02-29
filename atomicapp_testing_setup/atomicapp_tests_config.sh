@@ -1,4 +1,4 @@
-sudo dnf install vim wget openssl python docker make git rpm-python python-pip \
+sudo dnf install nmap vim wget openssl python docker make git rpm-python python-pip \
 		pylint go-md2man libselinux-python python-dbus kubernetes etcd -y
 
 sudo mkdir /etc/pki/kube-apiserver
