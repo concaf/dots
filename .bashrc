@@ -44,5 +44,9 @@ __prompt_command() {
         PS1+="${Green}💢"
     fi
 
-    PS1+="${Blue}\u${No_Color} ${Purple}\W${Yellow}$(__git_ps1 " (%s)") ${BRed}$ ${No_Color}"
+	oc project -q &> /dev/null
+	if [ $? -eq 0 ]; then
+	  OC_PSI=" ${BRed}$(oc whoami)${Red}@${BRed}$(oc project -q)${No_Color} "
+  fi
+    PS1+="${Blue}\u${No_Color} ${Purple}\W${Yellow}$(__git_ps1 " (%s)")$OC_PSI$ ${No_Color}"
 }
