@@ -79,6 +79,7 @@ review_pull_request() {
     echo "Invalid syntax: use review_pull_request <pull request ID> <local branch name, optional> <remote name, optional>"
     kill -INT $$
   fi
+  echo "Running: git fetch $remote_name pull/$pull_id/head:$local_branch"
   git fetch $remote_name pull/$pull_id/head:$local_branch
 }
 
