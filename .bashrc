@@ -51,4 +51,35 @@ __prompt_command() {
 #      PS1+="${Blue}\u${No_Color} ${Purple}\W${Yellow}$(__git_ps1 " (%s)")$OC_PSI$ ${No_Color}"
     PS1+="${Blue}\u${No_Color} ${Purple}\W${Yellow}$(__git_ps1 " (%s)") $ ${No_Color}"
 }
+
+review_pull_request() {
+	# review_pull_request <pull request ID> <local branch name> <remote name>
+  if [ "$#" -eq 1 ]; then
+    echo "Setting local branch to $1"
+    local_branch=$1
+    echo "Setting remote to 'upstream'"
+    remote_name="upstream"
+    echo "Fetching pull request $1"
+    pull_id=$1
+  elif [ "$#" -eq 2 ]; then
+    echo "Setting local branch to $2"
+    local_branch=$2
+    echo "Setting remote to 'upstream'"
+    remote_name="upstream"
+    echo "Fetching pull request $1"
+    pull_id=$1
+  elif [ "$#" -eq 3 ]; then
+    echo "Setting local branch to $2"
+    local_branch=$2
+    echo "Setting remote to $3"
+    remote_name=$3
+    echo "Fetching pull request $1"
+    pull_id=$1
+  else
+    echo "Invalid syntax: use review_pull_request <pull request ID> <local branch name, optional> <remote name, optional>"
+    kill -INT $$
+  fi
+  git fetch $remote_name pull/$pull_id/head:$local_branch
+}
+
 export ANSIBLE_NOCOWS=1
