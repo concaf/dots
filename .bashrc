@@ -10,6 +10,8 @@ export GOBIN=~/go_play/bin
 export CDPATH=.$GOPATH/src/github.com
 source <(~/opencompose/bin/opencompose completion bash)
 source <(~/kompose/bin/kompose completion bash)
+source <(~/kedge/bin/kedge completion bash)
+#source <(minikube completion bash)
 
 . /usr/share/git-core/contrib/completion/git-prompt.sh
 export GIT_PS1_SHOWDIRTYSTATE=1
@@ -52,6 +54,17 @@ __prompt_command() {
     PS1+="${Blue}\u${No_Color} ${Purple}\W${Yellow}$(__git_ps1 " (%s)") $ ${No_Color}"
 }
 
+kube_switch_namespace() {
+  kubectl get namespace $1 &> /dev/null
+  if [ $? -eq 0 ]; then
+    echo "Switching to namespace: $1"
+    kubectl config set-context $(kubectl config current-context) --namespace=$1 > /dev/null
+  else
+    echo "Namespace: $1 does not exist"
+    kill -INT $$ 
+  fi
+}
+
 review_pull_request() {
 	# review_pull_request <pull request ID> <local branch name> <remote name>
   if [ "$#" -eq 1 ]; then
@@ -79,8 +92,14 @@ review_pull_request() {
     echo "Invalid syntax: use review_pull_request <pull request ID> <local branch name, optional> <remote name, optional>"
     kill -INT $$
   fi
-  echo "Running: git fetch $remote_name pull/$pull_id/head:$local_branch"
-  git fetch $remote_name pull/$pull_id/head:$local_branch
+  echo "Running: git fetch $remote_name pull/$pull_id/head:$local_branch -f"
+  git fetch $remote_name pull/$pull_id/head:$local_branch -f
 }
 
 export ANSIBLE_NOCOWS=1
+
+# added by travis gem
+[ -f /home/concaf/.travis/travis.sh ] && source /home/concaf/.travis/travis.sh
+export PATH=$PATH:~/.fabric8/bin
+export PATH=/home/concaf/kubernetes/src/k8s.io/kubernetes/third_party/etcd:${PATH}
+alias ck=/home/concaf/kubernetes/src/k8s.io/kubernetes/cluster/kubectl.sh
