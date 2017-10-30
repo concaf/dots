@@ -2,9 +2,7 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
-
 export GOPATH=~/go_play
-
 export PATH=$PATH:$GOPATH/bin
 export GOBIN=~/go_play/bin
 export CDPATH=.$GOPATH/src/github.com
