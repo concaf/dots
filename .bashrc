@@ -9,7 +9,9 @@ export CDPATH=.$GOPATH/src/github.com
 source <(~/opencompose/bin/opencompose completion bash)
 source <(~/kompose/bin/kompose completion bash)
 source <(~/kedge/bin/kedge completion bash)
+source <(kubectl completion bash)
 #source <(minikube completion bash)
+source <(helm completion bash)
 
 . /usr/share/git-core/contrib/completion/git-prompt.sh
 export GIT_PS1_SHOWDIRTYSTATE=1
@@ -39,9 +41,9 @@ __prompt_command() {
    BPurple="\[\033[1;35m\]"
 
 		if [ $EXIT != 0 ]; then
-        PS1+="${Red}💢"
+        PS1+="${Red}⛰ "
     else
-        PS1+="${Green}💢"
+        PS1+="${Green}⛰ "
     fi
 
 # 	oc project -q &> /dev/null
@@ -100,4 +102,4 @@ export ANSIBLE_NOCOWS=1
 [ -f /home/concaf/.travis/travis.sh ] && source /home/concaf/.travis/travis.sh
 export PATH=$PATH:~/.fabric8/bin
 export PATH=/home/concaf/kubernetes/src/k8s.io/kubernetes/third_party/etcd:${PATH}
-alias ck=/home/concaf/kubernetes/src/k8s.io/kubernetes/cluster/kubectl.sh
+alias kkubectl=/home/concaf/kubernetes/src/k8s.io/kubernetes/cluster/kubectl.sh
