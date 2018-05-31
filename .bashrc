@@ -9,9 +9,11 @@ export CDPATH=.$GOPATH/src/github.com
 source <(~/opencompose/bin/opencompose completion bash)
 source <(~/kompose/bin/kompose completion bash)
 source <(~/kedge/bin/kedge completion bash)
-source <(kubectl completion bash)
-#source <(minikube completion bash)
+source <(~/odo/bin/odo completion bash)
+source <(~/ark/bin/ark completion bash)
+source <(minikube completion bash)
 source <(helm completion bash)
+source <(kubectl completion bash)
 
 . /usr/share/git-core/contrib/completion/git-prompt.sh
 export GIT_PS1_SHOWDIRTYSTATE=1
@@ -54,7 +56,7 @@ __prompt_command() {
     PS1+="${Blue}\u${No_Color} ${Purple}\W${Yellow}$(__git_ps1 " (%s)") $ ${No_Color}"
 }
 
-kube_switch_namespace() {
+kube-switch-namespace() {
   kubectl get namespace $1 &> /dev/null
   if [ $? -eq 0 ]; then
     echo "Switching to namespace: $1"
@@ -65,7 +67,7 @@ kube_switch_namespace() {
   fi
 }
 
-review_pull_request() {
+git-review-pull-request() {
 	# review_pull_request <pull request ID> <local branch name> <remote name>
   if [ "$#" -eq 1 ]; then
     echo "Setting local branch to $1"
@@ -94,9 +96,12 @@ review_pull_request() {
   fi
   echo "Running: git fetch $remote_name pull/$pull_id/head:$local_branch -f"
   git fetch $remote_name pull/$pull_id/head:$local_branch -f
+  echo "Switching to branch '$local_branch'"
+  git checkout $local_branch
 }
 
 export ANSIBLE_NOCOWS=1
+export MINISHIFT_ENABLE_EXPERIMENTAL=y
 
 # added by travis gem
 [ -f /home/concaf/.travis/travis.sh ] && source /home/concaf/.travis/travis.sh
