@@ -1,0 +1,1 @@
+- Access CRC running on a remote server - https://www.openshift.com/blog/accessing-codeready-containers-on-a-remote-server/
