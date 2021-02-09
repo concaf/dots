@@ -1,0 +1,2 @@
+- Deploy a local Docker registry to push and pull images from - https://docs.docker.com/registry/deploying/
+- Run an insecure registry with either no authentication or with self-signed certificates - https://docs.docker.com/registry/insecure/
